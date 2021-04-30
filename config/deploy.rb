@@ -1,4 +1,4 @@
-lock '3.16.0'
+lock '~> 3.16.0'
 
 set :application, 'change-cooking'
 
@@ -12,14 +12,11 @@ set :rbenv_ruby, '2.6.5'
 set :ssh_options, auth_methods: ['publickey'],
                                   keys: ['junyatest.pem'] 
 
-# プロセス番号を記載したファイルの場所
 set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 
-# Unicornの設定ファイルの場所
 set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
 set :keep_releases, 5
 
-# デプロイ処理が終わった後、Unicornを再起動するための記述
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :restart do
